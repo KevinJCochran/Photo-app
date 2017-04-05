@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="638.0" style="-fx-background-color: #D0E5FC;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.Controller">
+   <children>
+      <TableView fx:id="albumTable" layoutX="241.0" prefHeight="431.0" prefWidth="397.0">
+        <columns>
+          <TableColumn prefWidth="156.0" text="Album" />
+            <TableColumn prefWidth="90.0" text="Size" />
+          <TableColumn minWidth="0.0" prefWidth="150.0" text="Date" />
+        </columns>
+      </TableView>
+      <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="211.0" />
+      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="199.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../res/search_icon.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="72.0" layoutY="60.0" prefHeight="71.0" prefWidth="96.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #9FA2A5;">
+         <children>
+            <RadioButton fx:id="byDateButton" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="80.0" text="By date" />
+            <RadioButton fx:id="byTagButton" layoutX="8.0" layoutY="36.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="By tag" />
+         </children>
+      </Pane>
+      <Button fx:id="renameButton" layoutX="64.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" text="Rename" textFill="WHITE" />
+      <Button fx:id="deleteButton" layoutX="64.0" layoutY="261.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" text="Delete" textFill="WHITE" />
+      <Button fx:id="createButton" layoutX="64.0" layoutY="216.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" stylesheets="@stylesheet.css" text="Create" textFill="WHITE" />
+      <Button fx:id="logoutButton" layoutX="53.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #808080;" text="Logout" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
