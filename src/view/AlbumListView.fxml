@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="638.0" style="-fx-background-color: #D0E5FC;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="431.0" prefWidth="638.0" style="-fx-background-color: #D0E5FC;" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.AlbumListViewController">
    <children>
       <TableView fx:id="albumTable" layoutX="241.0" prefHeight="431.0" prefWidth="397.0">
         <columns>
@@ -35,7 +35,7 @@
       <Button fx:id="renameButton" layoutX="64.0" layoutY="306.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" text="Rename" textFill="WHITE" />
       <Button fx:id="deleteButton" layoutX="64.0" layoutY="261.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" text="Delete" textFill="WHITE" />
       <Button fx:id="createButton" layoutX="64.0" layoutY="216.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" stylesheets="@stylesheet.css" text="Create" textFill="WHITE" />
-      <Button fx:id="logoutButton" layoutX="53.0" layoutY="353.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #808080;" text="Logout" textFill="WHITE">
+      <Button fx:id="logoutButton" layoutX="53.0" layoutY="353.0" mnemonicParsing="false" onAction="#logout" prefHeight="27.0" prefWidth="134.0" style="-fx-background-color: #808080;" text="Logout" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

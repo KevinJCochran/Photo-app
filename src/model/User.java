@@ -25,14 +25,13 @@ public class User implements Serializable, Comparable<User>{
     // TODO search photos
     // TODO logout
 
-    public static void serializeUser(User user) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("../../res/" + user.username));
+    public static void writeUser(User user) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("res/data/" + user.username + ".dat"));
         oos.writeObject(user);
     }
 
     public static User readUser(String username) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("../../res/" + username));
-        User user = (User)ois.readObject();
-        return user;
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("res/data/" + username + ".dat"));
+        return (User)ois.readObject();
     }
 }
