@@ -1,7 +1,11 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Admin class keeps a list of all usernames as String objects. There should never be more than one admin therefore
@@ -25,10 +29,14 @@ public class Admin implements Serializable{
 
     /**
      * Will return the single instance of Admin.
-     * @return Admin
+     * @return Admin object
      */
     public static Admin getInstance() {
         return ourInstance;
+    }
+
+    public ArrayList<String> getUserList() {
+        return users;
     }
 
     /**
@@ -43,6 +51,27 @@ public class Admin implements Serializable{
         else {
             users.add(user);
             return true;
+        }
+    }
+
+    public boolean deleteUser(String user) {
+        if (users.contains(user)) {
+            users.remove(user);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean renameUser(String oldUser, String newUser) {
+        if (users.contains(oldUser) && !users.contains(newUser)) {
+            users.remove(oldUser);
+            users.add(newUser);
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

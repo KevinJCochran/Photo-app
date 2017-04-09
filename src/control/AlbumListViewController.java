@@ -13,7 +13,7 @@ import model.User;
 
 import java.io.IOException;
 
-public class AlbumListViewController {
+public class AlbumListViewController extends AbsController{
 
     @FXML
     protected TableView albumTable;
@@ -32,20 +32,5 @@ public class AlbumListViewController {
         this.user = user;
         this.currentStage = currentStage;
         currentStage.setTitle(user.username + "'s Photo Albums");
-    }
-
-    public void logout() throws IOException {
-        currentStage.hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/LoginView.fxml"));
-        AnchorPane root = loader.load();
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setScene(scene);
-        newStage.setTitle("Photo Albums");
-        newStage.setResizable(false);
-        newStage.show();
-        LoginController loginController = loader.getController();
-        loginController.start(newStage);
     }
 }

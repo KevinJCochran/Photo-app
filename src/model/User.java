@@ -34,4 +34,9 @@ public class User implements Serializable, Comparable<User>{
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream("res/data/" + username + ".dat"));
         return (User)ois.readObject();
     }
+
+    @Override
+    public String toString() {
+        return username;
+    }
 }

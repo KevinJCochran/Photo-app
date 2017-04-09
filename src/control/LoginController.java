@@ -26,6 +26,7 @@ public class LoginController {
     public void start(Stage primaryStage) {
         currentStage = primaryStage;
         admin = Admin.getInstance();
+        System.out.println("Users read from disk:\n" + admin.getUserList());
     }
 
 
@@ -37,6 +38,22 @@ public class LoginController {
             alert2.setHeaderText("Username field was left blank.");
             alert2.setContentText("Please enter a username.");
             alert2.showAndWait();
+            return;
+        }
+
+        if (username.equals("admin")) {
+            currentStage.hide();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("../view/AdminView.fxml"));
+            AnchorPane root = loader.load();
+            Scene scene = new Scene(root);
+            Stage newStage = new Stage();
+            newStage.setScene(scene);
+            newStage.setTitle("Admin Controls");
+            newStage.setResizable(false);
+            newStage.show();
+            AdminViewController adminViewController = loader.getController();
+            adminViewController.start(newStage);
             return;
         }
 
