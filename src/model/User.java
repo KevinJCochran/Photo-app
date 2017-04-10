@@ -3,10 +3,13 @@ package model;
 import java.io.*;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable, Comparable<User>{
 
+    private static final String path = "res" + File.separator + "data" + File.separator;
     public String username;
+    private ArrayList<Album> albumList;
 
     public User(String username) {
         this.username = username;
@@ -21,17 +24,16 @@ public class User implements Serializable, Comparable<User>{
     // TODO create album
     // TODO delete album
     // TODO rename album
-    // TODO open album
     // TODO search photos
     // TODO logout
 
     public static void writeUser(User user) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("res/data/" + user.username + ".dat"));
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + user.username + ".dat"));
         oos.writeObject(user);
     }
 
     public static User readUser(String username) throws IOException, ClassNotFoundException {
-        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("res/data/" + username + ".dat"));
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path + username + ".dat"));
         return (User)ois.readObject();
     }
 

@@ -28,7 +28,6 @@ public class AdminViewController extends AbsController{
     protected ListView<String> userListView;
 
     private ObservableList<String> obsUserList;
-    private Stage currentStage;
     private Admin admin;
 
 
@@ -38,7 +37,16 @@ public class AdminViewController extends AbsController{
      */
     public void start(Stage currentStage) {
         this.currentStage = currentStage;
+
         admin = Admin.getInstance();
+        currentStage.setOnCloseRequest(event -> {
+            System.out.println("Admin window closing...");
+            try {
+                admin.writeAdmin();
+            } catch (IOException e) {
+                System.out.println("Failed to write admin on exit");
+            }
+        });
 
         obsUserList = FXCollections.observableList(admin.getUserList());
         userListView.setItems(obsUserList);
@@ -55,16 +63,10 @@ public class AdminViewController extends AbsController{
         dialog.setHeaderText("Users are uniquely identified by username.");
         dialog.setContentText("Please enter new username:");
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            String username = result.get();
+        String username = result.isPresent() ? result.get() : "";
+        if (!username.equals("")) {
             if (admin.addUser(username)) {
                 userListView.setItems(FXCollections.observableArrayList(admin.getUserList()));
-                User newUser = new User(username);
-                try {
-                    User.writeUser(newUser);
-                } catch (IOException e) {
-                    System.out.println("Failed to write out new user");
-                }
             } else {
                 Alert alert2 = new Alert(Alert.AlertType.ERROR);
                 alert2.setTitle("Error");
@@ -78,28 +80,16 @@ public class AdminViewController extends AbsController{
     }
 
     public void deleteUser() {
-        /*TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Delete user");
-        dialog.setHeaderText("Users are uniquely identified by username.");
-        dialog.setContentText("Please enter username to delete:");
-        Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {*/
-            String username = userListView.getSelectionModel().getSelectedItem();
-            if (admin.deleteUser(username)) {
-                userListView.setItems(FXCollections.observableArrayList(admin.getUserList()));
-                try {
-                    Files.delete(Paths.get("res/data/" + username + ".dat"));
-                } catch (IOException e) {
-                    System.out.println("Failed to delete " + username);
-                }
-            } else {
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Error");
-                alert2.setHeaderText("Username does not exist.");
-                alert2.setContentText("Please enter a valid username.");
-                alert2.showAndWait();
-            }
-        //}
+        String username = userListView.getSelectionModel().getSelectedItem();
+        if (admin.deleteUser(username)) {
+            userListView.setItems(FXCollections.observableArrayList(admin.getUserList()));
+        } else {
+            Alert alert2 = new Alert(Alert.AlertType.ERROR);
+            alert2.setTitle("Error");
+            alert2.setHeaderText("Username does not exist.");
+            alert2.setContentText("Please enter a valid username.");
+            alert2.showAndWait();
+        }
     }
 
     public void renameUser() {
@@ -109,18 +99,15 @@ public class AdminViewController extends AbsController{
         dialog.setHeaderText("Users are uniquely identified by username.");
         dialog.setContentText("Please enter new username:");
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            String username = result.get();
+        String username = result.isPresent() ? result.get() : "";
+        if (!username.equals("")) {
             String username2 = userListView.getSelectionModel().getSelectedItem();
             if (admin.renameUser(username2,username)) {
                 userListView.setItems(FXCollections.observableArrayList(admin.getUserList()));
-                if (new File("res/data/" + username2 + ".dat").renameTo(new File("res/data/" + username + ".dat"))) {
-                    System.out.println("File successfully renamed");
-                }
             } else {
                 Alert alert2 = new Alert(Alert.AlertType.ERROR);
                 alert2.setTitle("Rename Error");
-                alert2.setHeaderText("Username does not exist.");
+                alert2.setHeaderText("The username you entered already exists");
                 alert2.setContentText("Please enter a valid username.");
                 alert2.showAndWait();
             }

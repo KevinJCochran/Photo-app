@@ -25,6 +25,9 @@ public class LoginController {
 
     public void start(Stage primaryStage) {
         currentStage = primaryStage;
+        currentStage.setOnCloseRequest(event -> {
+            System.out.println("Login closing...");
+        });
         admin = Admin.getInstance();
         System.out.println("Users read from disk:\n" + admin.getUserList());
     }
@@ -57,10 +60,9 @@ public class LoginController {
             return;
         }
 
-        if (admin.isValidUsername(username)) {
+        User user = admin.getUser(username);
+        if (user != null) {
             currentStage.hide();
-            User user = User.readUser(username);
-
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/AlbumListView.fxml"));
             AnchorPane root = loader.load();

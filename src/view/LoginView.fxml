@@ -19,7 +19,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <TextField fx:id="usernameField" layoutX="178.0" layoutY="200.0" prefHeight="27.0" prefWidth="245.0" />
+      <TextField fx:id="usernameField" layoutX="178.0" layoutY="200.0" onAction="#processLogin" prefHeight="27.0" prefWidth="245.0" />
       <Button fx:id="loginButton" layoutX="235.0" layoutY="256.0" mnemonicParsing="false" onAction="#processLogin" prefHeight="27.0" prefWidth="130.0" styleClass="mybutton" text="Login" textFill="WHITE" />
    </children>
 </AnchorPane>
