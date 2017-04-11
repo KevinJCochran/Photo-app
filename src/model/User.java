@@ -9,6 +9,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
+/**
+ * Class that represents the User model. Contains a list of albums that
+ * belong the user.
+ * @author Kevin Cochran
+ */
 public class User implements Serializable, Comparable<User>{
 
     private static final String path = "res" + File.separator + "data" + File.separator;
@@ -67,6 +72,11 @@ public class User implements Serializable, Comparable<User>{
         }
     }
 
+    /**
+     * Delete the album referenced by parameter
+     * @param album album to delete
+     * @return true if successful
+     */
     public boolean deleteAlbum(Album album) {
         if (albumList.contains(album)) {
             albumList.remove(album);
@@ -76,6 +86,12 @@ public class User implements Serializable, Comparable<User>{
         }
     }
 
+    /**
+     * Rename the specified album with the passed in name;
+     * @param album album to rename
+     * @param newName New name of album. Must not already be in use.
+     * @return true if successful
+     */
     public boolean renameAlbum(Album album, String newName) {
         if (albumList.contains(album) && !inAlbumList(newName)) {
             int index = albumList.indexOf(album);
@@ -88,6 +104,11 @@ public class User implements Serializable, Comparable<User>{
 
     // TODO search photos
 
+    /**
+     * Helper function to look up albums by string.
+     * @param str Album name to look for.
+     * @return true if found.
+     */
     private boolean inAlbumList(String str) {
         boolean containName = false;
         for (Album a : albumList) {
@@ -97,6 +118,11 @@ public class User implements Serializable, Comparable<User>{
         }
         return containName;
     }
+
+    /**
+     * Write user to disk specified by path field.
+     * @param user User to write out
+     */
     public static void writeUser(User user) throws IOException {
         System.out.println("Attempting to write out user...");
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path + user.username + ".dat"));
@@ -104,6 +130,11 @@ public class User implements Serializable, Comparable<User>{
         System.out.println("Successfully wrote user to disk");
     }
 
+    /**
+     * Read user in from disk with the passed in username.
+     * @param username User to read in.
+     * @return User
+     */
     public static User readUser(String username) throws IOException, ClassNotFoundException {
         System.out.println("Attempting to read in user...");
         ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path + username + ".dat"));
@@ -111,11 +142,20 @@ public class User implements Serializable, Comparable<User>{
         return (User)ois.readObject();
     }
 
+    /**
+     * Just your average compare method.
+     * @param u User to compare with
+     * @return zero if equal
+     */
     @Override
     public int compareTo(User u) {
         return this.username.compareTo(u.username);
     }
 
+    /**
+     * Just your average toSting method.
+     * @return Username
+     */
     @Override
     public String toString() {
         return username;

@@ -11,9 +11,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Admin;
 import model.User;
-
 import java.io.IOException;
 
+/**
+ * Controller for initial view upon launch.
+ * @author Kevin Cochran
+ */
 public class LoginController {
     @FXML
     protected TextField usernameField;
@@ -23,6 +26,10 @@ public class LoginController {
     private Stage currentStage;
     private Admin admin;
 
+    /**
+     * Start-up method to set controller fields and set on-close behavior.
+     * @param primaryStage
+     */
     public void start(Stage primaryStage) {
         currentStage = primaryStage;
         currentStage.setOnCloseRequest(event -> {
@@ -32,8 +39,10 @@ public class LoginController {
         System.out.println("Users read from disk:\n" + admin.getUserList());
     }
 
-
-    public void processLogin(ActionEvent e) throws IOException, ClassNotFoundException {
+    /**
+     * Executed when user clicks "login" or presses enter. Logs the user in or launches admin controls
+     */
+    public void processLogin() throws IOException, ClassNotFoundException {
         String username = usernameField.getText();
         if (username.equals("")) {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
@@ -64,7 +73,7 @@ public class LoginController {
         if (user != null || username.equals("test")) {
             currentStage.hide();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("../view/AlbumListView.fxml"));
+            loader.setLocation(getClass().getResource("../view/UserView.fxml"));
             AnchorPane root = loader.load();
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
@@ -72,8 +81,8 @@ public class LoginController {
             newStage.setTitle("Photo Albums");
             newStage.setResizable(false);
             newStage.show();
-            AlbumListViewController albumListViewController = loader.getController();
-            albumListViewController.start(user,newStage);
+            UserViewController userViewController = loader.getController();
+            userViewController.start(user,newStage);
         } else {
             Alert alert2 = new Alert(Alert.AlertType.ERROR);
             alert2.setTitle("Error logging in");

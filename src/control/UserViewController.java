@@ -1,7 +1,5 @@
 package control;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,7 +15,11 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Optional;
 
-public class AlbumListViewController extends AbsController{
+/**
+ * Controller for User's view after login.
+ * @author Kevin Cochran
+ */
+public class UserViewController extends AbsController{
 
     @FXML
     protected TableView<Album> albumTable;
@@ -37,6 +39,11 @@ public class AlbumListViewController extends AbsController{
     private User user;
     private Stage currentStage;
 
+    /**
+     * Start up method to set controller and window settings.
+     * @param user Current User.
+     * @param currentStage Current Stage. Used to close the window on logout.
+     */
     public void start(User user, Stage currentStage) {
         this.user = new User();
         this.currentStage = currentStage;
@@ -59,6 +66,9 @@ public class AlbumListViewController extends AbsController{
         albumTable.setItems(this.user.getObsAlbumList());
     }
 
+    /**
+     * Executes when "create" button is clicked. Calls createAlbum method.
+     */
     public void onCreate() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Create Album");
@@ -85,6 +95,10 @@ public class AlbumListViewController extends AbsController{
         }
     }
 
+    /**
+     * Executes when user clicks "delete". Fetches currently selected album from tableView
+     * and calls deleteAlbum method in User class.
+     */
     public void onDelete() {
         Album selection = albumTable.getSelectionModel().getSelectedItem();
         if (user.deleteAlbum(selection)) {
@@ -98,6 +112,10 @@ public class AlbumListViewController extends AbsController{
         }
     }
 
+    /**
+     * Executes when user clicks "rename". Gets old name from current selection in TableView
+     * and Prompts user for new name. Calls renameAlbum in User class.
+     */
     public void onRename() {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Rename Album");
@@ -126,6 +144,12 @@ public class AlbumListViewController extends AbsController{
         }
     }
 
+    /**
+     * Executes when user double clicks a row in TableView and Album in that row
+     * is then opened in new window.
+     * @param event Mouse click event.
+     * @throws IOException If FXML is not found.
+     */
     public void onRowClick(MouseEvent event) throws IOException {
         if (event.getClickCount() == 2) {
             Album album = albumTable.getSelectionModel().getSelectedItem();
@@ -139,9 +163,18 @@ public class AlbumListViewController extends AbsController{
             newStage.setTitle("Login");
             newStage.setResizable(false);
             newStage.show();
+
+            AlbumViewController albumViewController = loader.getController();
+            //albumViewController.start(this.user, album, newStage);
         }
 
     }
+
+    /**
+     * Executes when user clicks "logout". Current user is written to disk and
+     * login window is opened.
+     * @throws IOException If FXML file is not found.
+     */
     @Override
     public void logout() throws IOException {
         User.writeUser(this.user);

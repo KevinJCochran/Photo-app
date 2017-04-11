@@ -7,9 +7,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.User;
-
 import java.io.IOException;
 
+/**
+ * Starts application and JavaFX stuff
+ */
 public class PhotoApp extends Application {
 
     @Override
@@ -28,7 +30,9 @@ public class PhotoApp extends Application {
         primaryStage.show();
     }
 
-
+    /**
+     * Start application
+     */
     public static void main(String[] args) throws IOException {
         /*User kevin = new User("Kevin");
         User Farah = new User("Farah");
