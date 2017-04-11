@@ -28,8 +28,6 @@ public class PhotoApp extends Application {
         primaryStage.show();
     }
 
-    // TODO safe exit
-
 
     public static void main(String[] args) throws IOException {
         /*User kevin = new User("Kevin");
