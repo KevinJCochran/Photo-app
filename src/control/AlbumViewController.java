@@ -96,9 +96,12 @@ public class AlbumViewController extends AbsController{
                         captionText.setText(newValue.getCaption());
                         dateText.setText(newValue.getDateAsString());
                         tagListView.setItems(newValue.getTagsObsList());
+                        tagListView.getSelectionModel().select(0);
                     }
                 }
         );
+
+        photosListView.getSelectionModel().select(0);
     }
 
     public void onAddPhoto() {
@@ -107,6 +110,7 @@ public class AlbumViewController extends AbsController{
         if (file != null) {
             album.addPhoto(file);
             photosListView.setItems(album.getObsList());
+            photosListView.getSelectionModel().select(album.getSize()-1);
         }
     }
 
@@ -200,12 +204,24 @@ public class AlbumViewController extends AbsController{
     public void onDeleteTag() {
         Tag tag = tagListView.getSelectionModel().getSelectedItem();
         Photo photo = photosListView.getSelectionModel().getSelectedItem();
-        photo.deleteTag(tag);
+        album.removeTag(photo,tag);
     }
 
-    public void onNext() {}
+    public void onNext() {
+        int index = photosListView.getSelectionModel().getSelectedIndex();
+        if ((index + 1) < album.getSize()) {
+            photosListView.getSelectionModel().select(index + 1);
+            photosListView.scrollTo(index + 1);
+        }
+    }
 
-    public void onPrev() {}
+    public void onPrev() {
+        int index = photosListView.getSelectionModel().getSelectedIndex();
+        if ((index - 1) >= 0) {
+            photosListView.getSelectionModel().select(index - 1);
+            photosListView.scrollTo(index - 1);
+        }
+    }
 
     public void onBack() throws IOException {
         currentStage.hide();

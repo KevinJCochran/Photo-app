@@ -24,17 +24,9 @@ public class Album implements Serializable, Comparable<Album> {
     private Calendar endDate;
     private ArrayList<Photo> photos;
 
+
     public Album(String name) {
         this.name = name;
-        this.size = 0;
-        this.photos = new ArrayList<>();
-    }
-
-    public Album(String name, int size, Calendar startDate, Calendar endDate) {
-        this.name = name;
-        this.size = size;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.photos = new ArrayList<>();
     }
 
@@ -42,6 +34,7 @@ public class Album implements Serializable, Comparable<Album> {
         if (photos.contains(photo)) return false;
         else {
             photos.add(photo);
+            updateAlbumInfo();
             return true;
         }
     }
@@ -62,6 +55,7 @@ public class Album implements Serializable, Comparable<Album> {
         if (photos.contains(photo)) return false;
         else {
             photos.add(photo);
+            updateAlbumInfo();
             return true;
         }
     }
@@ -69,6 +63,7 @@ public class Album implements Serializable, Comparable<Album> {
     public boolean deletePhoto(Photo photo) {
         if (photos.contains(photo)) {
             photos.remove(photo);
+            updateAlbumInfo();
             return true;
         } else {
             return false;
@@ -170,6 +165,28 @@ public class Album implements Serializable, Comparable<Album> {
         cal.set(Calendar.SECOND,0);
         cal.set(Calendar.MILLISECOND,0);
         return cal;
+    }
+
+    private void updateAlbumInfo() {
+        this.size = photos.size();
+        if (photos.size() > 0) {
+            Photo photo = photos.get(0);
+            Calendar minDate = photo.getDateAsCal();
+            Calendar maxDate = photo.getDateAsCal();
+            for (Photo p : photos) {
+                if (p.getDateAsCal().compareTo(maxDate) > 0) {
+                    maxDate = p.getDateAsCal();
+                }
+                if (p.getDateAsCal().compareTo(minDate) < 0) {
+                    minDate = p.getDateAsCal();
+                }
+            }
+            this.startDate = minDate;
+            this.endDate = maxDate;
+        } else {
+            this.startDate = null;
+            this.endDate = null;
+        }
     }
 
     /**

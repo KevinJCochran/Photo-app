@@ -62,6 +62,10 @@ public class Photo implements Serializable{
         return Album.calToString(this.date);
     }
 
+    public Calendar getDateAsCal() {
+        return date;
+    }
+
     public boolean addTag(Tag tag) {
         if (!tags.contains(tag)) {
             tags.add(tag);

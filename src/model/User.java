@@ -20,27 +20,6 @@ public class User implements Serializable, Comparable<User>{
     public String username;
     public ArrayList<Album> albumList;
 
-    public User() {
-        this.username = "test";
-        this.albumList = new ArrayList<>();
-        albumList.add(new Album("Nova Scotia",
-                12,
-                new GregorianCalendar(2014,8,20),
-                new GregorianCalendar(2014,8,27)
-        ));
-        albumList.add(new Album("New York",
-                19,
-                new GregorianCalendar(2011,12,15),
-                new GregorianCalendar(2011,12,17)
-        ));
-        albumList.add(new Album("Toronto",
-                39,
-                new GregorianCalendar(2012,9,3),
-                new GregorianCalendar(2012,9,10)
-        ));
-        System.out.println("State of album list at creation:\n" + toString());
-    }
-
     /**
      * Create a new user with the passed username
      * @param username the username for new user
@@ -65,7 +44,7 @@ public class User implements Serializable, Comparable<User>{
      */
     public boolean createAlbum(String name) {
         if (!inAlbumList(name)) {
-            albumList.add(new Album(name, 0, null, null));
+            albumList.add(new Album(name));
             return true;
         } else {
             return false;
