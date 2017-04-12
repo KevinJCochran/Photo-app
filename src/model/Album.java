@@ -4,10 +4,12 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
@@ -31,6 +33,8 @@ public class Album implements Serializable, Comparable<Album> {
 
     public Album(String name) {
         this.name = name;
+        this.size = 0;
+        this.photos = new ArrayList<>();
     }
 
     public Album(String name, int size, Calendar startDate, Calendar endDate) {
@@ -38,6 +42,54 @@ public class Album implements Serializable, Comparable<Album> {
         this.size = size;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.photos = new ArrayList<>();
+    }
+
+    public boolean addPhoto(Photo photo) {
+        if (photos.contains(photo)) return false;
+        else {
+            photos.add(photo);
+            return true;
+        }
+    }
+
+    // TODO make size and date range dependent on photos list
+    public boolean addPhoto(File file) {
+        if (file == null) return false;
+        System.out.println("Adding photo...");
+        String path = file.getAbsolutePath();
+        System.out.println("Path: " + path);
+        String caption = file.getName();
+        System.out.println("Caption: " + caption);
+        Calendar date = new GregorianCalendar();
+        date.setTime(new Date(file.lastModified()));
+        date.set(Calendar.MILLISECOND,0);
+        System.out.println("Date: " + calToString(date));
+        Photo photo = new Photo(path, caption, date);
+        if (photos.contains(photo)) return false;
+        else {
+            photos.add(photo);
+            return true;
+        }
+    }
+
+    public boolean deletePhoto(Photo photo) {
+        if (photos.contains(photo)) {
+            photos.remove(photo);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean recaptionPhoto(Photo photo, String caption) {
+        int index = photos.indexOf(photo);
+        if (index >= 0) {
+            photos.get(index).setCaption(caption);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -110,6 +162,7 @@ public class Album implements Serializable, Comparable<Album> {
      * @return Formatted string
      */
     public static String calToString(Calendar cal) {
+        if (cal == null) return "";
         SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
         return df.format(cal.getTime());
     }

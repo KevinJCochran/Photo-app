@@ -78,7 +78,7 @@ public class LoginController {
             Scene scene = new Scene(root);
             Stage newStage = new Stage();
             newStage.setScene(scene);
-            newStage.setTitle("Photo Albums");
+            newStage.setTitle("photo albums");
             newStage.setResizable(false);
             newStage.show();
             UserViewController userViewController = loader.getController();

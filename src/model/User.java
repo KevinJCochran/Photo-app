@@ -102,6 +102,27 @@ public class User implements Serializable, Comparable<User>{
         }
     }
 
+    public boolean movePhoto(Album currentAlbum, Album album, Photo photo) {
+        if (albumList.contains(album)) {
+            if (album.addPhoto(photo)) {
+                currentAlbum.deletePhoto(photo);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public boolean copyPhoto(Album album, Photo photo) {
+        if (albumList.contains(album)) {
+            return album.addPhoto(photo);
+        } else {
+            return false;
+        }
+    }
+
     // TODO search photos
 
     /**

@@ -28,16 +28,13 @@ public class UserViewController extends AbsController{
     @FXML
     protected TableColumn<Album,Integer> sizeColumn;
     @FXML
-    protected TableColumn<Album, Calendar> startDateColumn, endDateColumn;
+    protected TableColumn<Album, String> startDateColumn, endDateColumn;
     @FXML
     protected TextField searchField;
     @FXML
     protected RadioButton byDateButton, byTagButton;
     @FXML
     protected Button renameButton, deleteButton, createButton, logoutButton;
-
-    private User user;
-    private Stage currentStage;
 
     /**
      * Start up method to set controller and window settings.
@@ -46,6 +43,7 @@ public class UserViewController extends AbsController{
      */
     public void start(User user, Stage currentStage) {
         this.user = new User();
+        //this.user = user;
         this.currentStage = currentStage;
         currentStage.setOnCloseRequest(event -> {
             System.out.println("Album list closing...");
@@ -165,30 +163,8 @@ public class UserViewController extends AbsController{
             newStage.show();
 
             AlbumViewController albumViewController = loader.getController();
-            //albumViewController.start(this.user, album, newStage);
+            albumViewController.start(this.user, album, newStage);
         }
 
-    }
-
-    /**
-     * Executes when user clicks "logout". Current user is written to disk and
-     * login window is opened.
-     * @throws IOException If FXML file is not found.
-     */
-    @Override
-    public void logout() throws IOException {
-        User.writeUser(this.user);
-        currentStage.hide();
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../view/LoginView.fxml"));
-        AnchorPane root = loader.load();
-        Scene scene = new Scene(root);
-        Stage newStage = new Stage();
-        newStage.setScene(scene);
-        newStage.setTitle("Login");
-        newStage.setResizable(false);
-        newStage.show();
-        LoginController loginController = loader.getController();
-        loginController.start(newStage);
     }
 }

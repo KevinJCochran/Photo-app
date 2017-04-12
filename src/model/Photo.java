@@ -1,6 +1,9 @@
 package model;
 
+import javafx.scene.image.Image;
+import java.io.File;
 import java.io.Serializable;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
@@ -14,11 +17,56 @@ public class Photo implements Serializable{
     private String caption;
     private Calendar date;
     private List<Tag> tags;
+    private String pathToImage;
 
 
-    public Photo(String caption, Calendar date) {
+    public Photo(String path, Calendar date) {
+        this.pathToImage = path;
+        this.date = date;
+    }
+
+    public Photo(String path, String caption, Calendar date) {
+        this.pathToImage = path;
         this.caption = caption;
         this.date = date;
+    }
+
+    public Image getImage() {
+        System.out.println("Looking for photo in: " + pathToImage);
+        File file = new File(pathToImage);
+        String localUrl = null;
+        try {
+            localUrl = file.toURI().toURL().toString();
+        } catch (MalformedURLException e) {
+            System.out.println("Bad URL...");
+        }
+        return (localUrl != null) ? new Image(localUrl) : null;
+    }
+
+    public String getCaption() {
+        return caption;
+    }
+
+    public String getPath() {
+        return pathToImage;
+    }
+
+    public void setCaption(String caption) {
+        this.caption = caption;
+    }
+
+    public String getDateAsString() {
+        return Album.calToString(this.date);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Photo photo = (Photo) o;
+
+        return pathToImage.equals(photo.getPath());
     }
 
     // TODO write Photo class
