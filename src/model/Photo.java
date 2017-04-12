@@ -1,10 +1,13 @@
 package model;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import java.io.File;
 import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,15 +23,11 @@ public class Photo implements Serializable{
     private String pathToImage;
 
 
-    public Photo(String path, Calendar date) {
-        this.pathToImage = path;
-        this.date = date;
-    }
-
     public Photo(String path, String caption, Calendar date) {
         this.pathToImage = path;
         this.caption = caption;
         this.date = date;
+        this.tags = new ArrayList<>();
     }
 
     public Image getImage() {
@@ -51,12 +50,29 @@ public class Photo implements Serializable{
         return pathToImage;
     }
 
+    public ObservableList<Tag> getTagsObsList() {
+        return FXCollections.observableList(tags);
+    }
+
     public void setCaption(String caption) {
         this.caption = caption;
     }
 
     public String getDateAsString() {
         return Album.calToString(this.date);
+    }
+
+    public boolean addTag(Tag tag) {
+        if (!tags.contains(tag)) {
+            tags.add(tag);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteTag(Tag tag) {
+        return tags.remove(tag);
     }
 
     @Override

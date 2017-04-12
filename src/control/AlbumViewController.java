@@ -95,7 +95,7 @@ public class AlbumViewController extends AbsController{
                         imageView.setImage(newValue.getImage());
                         captionText.setText(newValue.getCaption());
                         dateText.setText(newValue.getDateAsString());
-                        // TODO Display tag stuff too
+                        tagListView.setItems(newValue.getTagsObsList());
                     }
                 }
         );
@@ -141,6 +141,7 @@ public class AlbumViewController extends AbsController{
         Album input = result.isPresent() ? result.get() : null;
         if (input != null) {
             Photo photo = photosListView.getSelectionModel().getSelectedItem();
+            photosListView.setItems(album.getObsList());
             if (!user.movePhoto(this.album, input, photo)) {
                 Alert alert2 = new Alert(Alert.AlertType.ERROR);
                 alert2.setTitle("Move Error");
@@ -170,9 +171,37 @@ public class AlbumViewController extends AbsController{
         }
     }
 
-    public void onAddTag() {}
+    public void onAddTag() {
+        Photo photo = photosListView.getSelectionModel().getSelectedItem();
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Add Tag");
+        dialog.setHeaderText("Tags are a unique type, value pair. Format: '[type]:[value]'");
+        dialog.setContentText("Please enter a new tag for your photo:");
+        Optional<String> result = dialog.showAndWait();
+        String input = result.isPresent() ? result.get() : "";
+        if (!input.equals("")) {
+            String[] inputs = input.split(":");
+            inputs[0] = inputs[0].trim();
+            inputs[1] = inputs[1].trim();
+            System.out.println("type: '" + inputs[0] + "' , value: '" + inputs[1] + "'");
+            Tag tag = new Tag(inputs[0], inputs[1]);
+            if (album.tagPhoto(photo, tag)) {
+                tagListView.setItems(album.getPhoto(photo).getTagsObsList());
+            } else {
+                Alert alert2 = new Alert(Alert.AlertType.ERROR);
+                alert2.setTitle("Tag Error");
+                alert2.setHeaderText("This photo already has this tag");
+                alert2.setContentText("Please enter a new tag.");
+                alert2.showAndWait();
+            }
+        }
+    }
 
-    public void onDeleteTag() {}
+    public void onDeleteTag() {
+        Tag tag = tagListView.getSelectionModel().getSelectedItem();
+        Photo photo = photosListView.getSelectionModel().getSelectedItem();
+        photo.deleteTag(tag);
+    }
 
     public void onNext() {}
 

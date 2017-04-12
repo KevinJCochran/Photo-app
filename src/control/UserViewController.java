@@ -42,8 +42,8 @@ public class UserViewController extends AbsController{
      * @param currentStage Current Stage. Used to close the window on logout.
      */
     public void start(User user, Stage currentStage) {
-        this.user = new User();
-        //this.user = user;
+        //this.user = new User();
+        this.user = user;
         this.currentStage = currentStage;
         currentStage.setOnCloseRequest(event -> {
             System.out.println("Album list closing...");

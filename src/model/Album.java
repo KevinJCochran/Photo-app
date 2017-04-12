@@ -24,13 +24,6 @@ public class Album implements Serializable, Comparable<Album> {
     private Calendar endDate;
     private ArrayList<Photo> photos;
 
-    // To be used for testing only.
-    public Album() {
-        this.name = "Tokyo";
-        this.photos.add(new Photo("City", getCalendar(2,9,2009)));
-        this.photos.add(new Photo("Nighttime", getCalendar(2,15,2009)));
-    }
-
     public Album(String name) {
         this.name = name;
         this.size = 0;
@@ -92,6 +85,20 @@ public class Album implements Serializable, Comparable<Album> {
         }
     }
 
+    public boolean tagPhoto(Photo photo, Tag tag) {
+        int index = photos.indexOf(photo);
+        if (index >= 0) {
+            return photos.get(index).addTag(tag);
+        } else {
+            return false;
+        }
+    }
+
+    public boolean removeTag(Photo photo, Tag tag) {
+        int index = photos.indexOf(photo);
+        return index >= 0 && photos.get(index).deleteTag(tag);
+    }
+
     /**
      * Set the album name.
      * @param name new name
@@ -114,6 +121,15 @@ public class Album implements Serializable, Comparable<Album> {
      */
     public String getName() {
         return name;
+    }
+
+    public Photo getPhoto(Photo photo) {
+        int index = photos.indexOf(photo);
+        if (index >= 0) {
+            return photos.get(index);
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -173,10 +189,7 @@ public class Album implements Serializable, Comparable<Album> {
      */
     @Override
     public String toString() {
-        return "{" +
-                "name='" + name + '\'' +
-                ", size=" + size +
-                '}';
+        return name;
     }
 
     /**
