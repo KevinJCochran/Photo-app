@@ -5,8 +5,6 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -22,12 +20,7 @@
         </columns>
       </TableView>
       <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" onAction="#onSearch" prefHeight="27.0" prefWidth="211.0" />
-      <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="199.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../res/search_icon.png" />
-         </image>
-      </ImageView>
-      <Pane layoutX="72.0" layoutY="60.0" prefHeight="71.0" prefWidth="96.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #9FA2A5;">
+      <Pane layoutX="72.0" layoutY="92.0" prefHeight="71.0" prefWidth="96.0" style="-fx-background-color: #FFFFFF; -fx-border-color: #9FA2A5;">
          <children>
             <RadioButton fx:id="byDateButton" layoutX="8.0" layoutY="14.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="80.0" text="By date" />
             <RadioButton fx:id="byTagButton" layoutX="8.0" layoutY="36.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="70.0" text="By tag" />
@@ -41,5 +34,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
+      <Button layoutX="64.0" layoutY="52.0" mnemonicParsing="false" onAction="#onSearch" prefHeight="27.0" prefWidth="111.0" styleClass="mybutton" stylesheets="@stylesheet.css" text="Search" textFill="WHITE" />
    </children>
 </AnchorPane>

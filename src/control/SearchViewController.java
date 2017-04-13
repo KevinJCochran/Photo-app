@@ -102,9 +102,9 @@ public class SearchViewController {
     private ArrayList<Photo> doSearch() {
         ArrayList<Photo> results = new ArrayList<>();
         if (mode == BY_TAG) {
-            String[] str = query.split("=");
+            String[] str = query.split(":");
             if (str.length < 2) {
-                System.out.println("Wrong");
+                System.out.println("Bad input");
                 return null;
             }
             Tag searchTag = new Tag(str[0].trim(),str[1].trim());

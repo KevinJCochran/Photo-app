@@ -175,6 +175,9 @@ public class UserViewController extends AbsController{
 
     }
 
+    /**
+     * Use to search.
+     */
     public void onSearch() throws IOException {
         String query = searchField.getText();
         Toggle toggle = group.getSelectedToggle();
