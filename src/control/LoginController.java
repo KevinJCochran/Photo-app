@@ -70,7 +70,7 @@ public class LoginController {
         }
 
         User user = admin.getUser(username);
-        if (user != null || username.equals("test")) {
+        if (user != null) {
             currentStage.hide();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("../view/UserView.fxml"));

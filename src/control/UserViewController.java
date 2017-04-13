@@ -36,6 +36,7 @@ public class UserViewController extends AbsController{
     @FXML
     protected Button renameButton, deleteButton, createButton, logoutButton;
 
+    ToggleGroup group = new ToggleGroup();
     /**
      * Start up method to set controller and window settings.
      * @param user Current User.
@@ -62,6 +63,12 @@ public class UserViewController extends AbsController{
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("endDate"));
 
         albumTable.setItems(this.user.getObsAlbumList());
+
+        byDateButton.setUserData("byDate");
+        byTagButton.setUserData("byTag");
+        byDateButton.setToggleGroup(group);
+        byDateButton.setSelected(true);
+        byTagButton.setToggleGroup(group);
     }
 
     /**
@@ -166,5 +173,24 @@ public class UserViewController extends AbsController{
             albumViewController.start(this.user, album, newStage);
         }
 
+    }
+
+    public void onSearch() throws IOException {
+        String query = searchField.getText();
+        Toggle toggle = group.getSelectedToggle();
+        String choice = (String)toggle.getUserData();
+        currentStage.hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/SearchView.fxml"));
+        AnchorPane root = loader.load();
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Search Results");
+        newStage.setResizable(false);
+        newStage.show();
+
+        SearchViewController searchViewController = loader.getController();
+        searchViewController.start(newStage,user,choice,query);
     }
 }

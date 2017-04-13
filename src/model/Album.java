@@ -7,10 +7,7 @@ import javafx.collections.ObservableList;
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 /**
  * Class that represents album model. Contains a list of photos in album.
@@ -22,12 +19,18 @@ public class Album implements Serializable, Comparable<Album> {
     private int size;
     private Calendar startDate;
     private Calendar endDate;
-    private ArrayList<Photo> photos;
+    public ArrayList<Photo> photos;
 
 
     public Album(String name) {
         this.name = name;
         this.photos = new ArrayList<>();
+    }
+
+    public Album(String name, ArrayList<Photo> list) {
+        this.name = name;
+        this.photos = list;
+        updateAlbumInfo();
     }
 
     public boolean addPhoto(Photo photo) {

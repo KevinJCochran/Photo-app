@@ -205,6 +205,8 @@ public class AlbumViewController extends AbsController{
         Tag tag = tagListView.getSelectionModel().getSelectedItem();
         Photo photo = photosListView.getSelectionModel().getSelectedItem();
         album.removeTag(photo,tag);
+        tagListView.setItems(photo.getTagsObsList());
+        tagListView.refresh();
     }
 
     public void onNext() {

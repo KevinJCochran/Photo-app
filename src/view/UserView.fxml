@@ -21,7 +21,7 @@
             <TableColumn fx:id="endDateColumn" prefWidth="128.0" text="End" />
         </columns>
       </TableView>
-      <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="211.0" />
+      <TextField fx:id="searchField" layoutX="14.0" layoutY="14.0" onAction="#onSearch" prefHeight="27.0" prefWidth="211.0" />
       <ImageView fitHeight="26.0" fitWidth="26.0" layoutX="199.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../res/search_icon.png" />

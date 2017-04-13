@@ -19,7 +19,7 @@ public class Photo implements Serializable{
 
     private String caption;
     private Calendar date;
-    private List<Tag> tags;
+    public List<Tag> tags;
     private String pathToImage;
 
 
@@ -87,6 +87,11 @@ public class Photo implements Serializable{
         Photo photo = (Photo) o;
 
         return pathToImage.equals(photo.getPath());
+    }
+
+    @Override
+    public String toString() {
+        return caption;
     }
 
     // TODO write Photo class

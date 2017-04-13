@@ -51,6 +51,14 @@ public class User implements Serializable, Comparable<User>{
         }
     }
 
+    public boolean createAlbum(Album newAlbum) {
+        if (albumList.contains(newAlbum)) return false;
+        else {
+            albumList.add(newAlbum);
+            return true;
+        }
+    }
+
     /**
      * Delete the album referenced by parameter
      * @param album album to delete
