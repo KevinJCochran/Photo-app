@@ -59,6 +59,7 @@ public class AlbumViewController extends AbsController{
         this.user = u;
         this.album = a;
 
+        searchField.setPromptText("Hit enter to search");
         currentStage.setOnCloseRequest(event -> {
             System.out.println("Album view closing...");
             try {
