@@ -111,7 +111,7 @@ public class SearchViewController {
             for (Album album : user.albumList) {
                 for (Photo photo : album.photos) {
                     for (Tag tag : photo.tags) {
-                        if (tag.equals(searchTag)) {
+                        if (tag.equals(searchTag) && !results.contains(photo)) {
                             results.add(photo);
                             break;
                         }

@@ -46,6 +46,7 @@ public class AlbumViewController extends AbsController{
 
     private static final String pathToRes = (".." + File.separator + ".." + File.separator + "res" + File.separator);
     private Album album;
+    ToggleGroup group = new ToggleGroup();
 
     /**
      * Set-up controller fields
@@ -102,6 +103,12 @@ public class AlbumViewController extends AbsController{
         );
 
         photosListView.getSelectionModel().select(0);
+
+        byDateButton.setUserData("byDate");
+        byTagButton.setUserData("byTag");
+        byDateButton.setToggleGroup(group);
+        byDateButton.setSelected(true);
+        byTagButton.setToggleGroup(group);
     }
 
     public void onAddPhoto() {
@@ -238,5 +245,24 @@ public class AlbumViewController extends AbsController{
         newStage.show();
         UserViewController userViewController = loader.getController();
         userViewController.start(user,newStage);
+    }
+
+    public void onSearch() throws IOException {
+        String query = searchField.getText();
+        Toggle toggle = group.getSelectedToggle();
+        String choice = (String)toggle.getUserData();
+        currentStage.hide();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../view/SearchView.fxml"));
+        AnchorPane root = loader.load();
+        Scene scene = new Scene(root);
+        Stage newStage = new Stage();
+        newStage.setScene(scene);
+        newStage.setTitle("Search Results");
+        newStage.setResizable(false);
+        newStage.show();
+
+        SearchViewController searchViewController = loader.getController();
+        searchViewController.start(newStage,user,choice,query);
     }
 }
