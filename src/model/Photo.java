@@ -6,7 +6,6 @@ import javafx.scene.image.Image;
 import java.io.File;
 import java.io.Serializable;
 import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
